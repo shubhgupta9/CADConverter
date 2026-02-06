@@ -1,0 +1,5 @@
+{
+  "name": "CAD-Recon AI Assistant",
+  "description": "An industrial-grade AI tool that intelligently reconstructs STL meshes into feature-rich, parametric STEP/B-Rep geometry using deep learning analysis.",
+  "requestFramePermissions": []
+}
