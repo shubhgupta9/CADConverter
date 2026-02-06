@@ -20,3 +20,4 @@ View your app in AI Studio: https://ai.studio/apps/drive/1YgEAvxKbD-trDKmNPoFWkr
    `VITE_API_HOST=https://ai-gateway.uni-paderborn.de/v1/`
 3. Run the app:
    `npm run dev`
+# CADConverter
