@@ -1,6 +1,5 @@
 # 🛠️ CAD-Recon AI: Industrial Mesh-to-B-Rep System
 
-[![Engine](https://img.shields.io/badge/AI_Engine-Gemini_2.0_Flash-blueviolet?style=for-the-badge)](https://ai.google.dev/)
 [![Graphics](https://img.shields.io/badge/Graphics-Three.js_/_R3F-000000?style=for-the-badge)](https://threejs.org/)
 [![Industry](https://img.shields.io/badge/Field-Industrial_Design-orange?style=for-the-badge)](#)
 
