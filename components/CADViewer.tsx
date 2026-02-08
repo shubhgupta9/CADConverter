@@ -23,12 +23,13 @@ const MeshStandardMaterial = 'meshStandardMaterial' as any;
 interface FeatureHighlightProps {
   feature: CADFeature;
   active: boolean;
+  onSelect: (id: string) => void;
   modelBounds?: THREE.Box3;
   isPreviewing: boolean;
   theme: 'dark' | 'light';
 }
 
-const FeatureIndicator: React.FC<FeatureHighlightProps> = ({ feature, active, modelBounds, isPreviewing, theme }) => {
+const FeatureIndicator: React.FC<FeatureHighlightProps> = ({ feature, active, onSelect, modelBounds, isPreviewing, theme }) => {
   const isDark = theme === 'dark';
   const position = useMemo(() => {
     if (!modelBounds) return new THREE.Vector3(0, 0, 0);
@@ -51,7 +52,19 @@ const FeatureIndicator: React.FC<FeatureHighlightProps> = ({ feature, active, mo
   return (
     <Group position={position}>
       <Float speed={5} rotationIntensity={0.5} floatIntensity={0.5}>
-        <Sphere args={[active ? 3.5 : 1.2, 32, 32]}>
+        <Sphere 
+          args={[active ? 3.5 : 1.2, 32, 32]}
+          onClick={(e) => {
+            e.stopPropagation();
+            onSelect(feature.id);
+          }}
+          onPointerOver={() => {
+            document.body.style.cursor = 'pointer';
+          }}
+          onPointerOut={() => {
+            document.body.style.cursor = 'default';
+          }}
+        >
           <MeshStandardMaterial 
             color={active ? "#3b82f6" : "#1d4ed8"} 
             emissive={active ? "#60a5fa" : "#1e40af"}
@@ -135,17 +148,22 @@ interface CADViewerProps {
   modelUrl: string | null;
   features: CADFeature[];
   activeFeatureId: string | null;
+  onSelectFeature: (id: string | null) => void;
   isPreviewing: boolean;
   theme: 'dark' | 'light';
 }
 
-const CADViewer: React.FC<CADViewerProps> = ({ modelUrl, features, activeFeatureId, isPreviewing, theme }) => {
+const CADViewer: React.FC<CADViewerProps> = ({ modelUrl, features, activeFeatureId, onSelectFeature, isPreviewing, theme }) => {
   const [modelBounds, setModelBounds] = useState<THREE.Box3 | null>(null);
   const isDark = theme === 'dark';
 
   return (
     <div className={`w-full h-full relative cursor-crosshair ${isDark ? 'bg-[#0c0c0e]' : 'bg-white'}`}>
-      <Canvas shadows dpr={[1, 2]}>
+      <Canvas 
+        shadows 
+        dpr={[1, 2]}
+        onPointerMissed={() => onSelectFeature(null)}
+      >
         <PerspectiveCamera makeDefault position={[80, 80, 80]} fov={35} />
         <Suspense fallback={<Html center><div className="text-blue-600 animate-pulse font-black uppercase bg-zinc-900/10 px-10 py-5 rounded-full backdrop-blur-2xl">SCANNING_CORE...</div></Html>}>
           <Stage environment="city" intensity={isPreviewing ? 2.5 : 1} shadows="contact" adjustCamera={1.2}>
@@ -162,6 +180,7 @@ const CADViewer: React.FC<CADViewerProps> = ({ modelUrl, features, activeFeature
                 key={f.id} 
                 feature={f} 
                 active={activeFeatureId === f.id} 
+                onSelect={onSelectFeature}
                 modelBounds={modelBounds}
                 isPreviewing={isPreviewing}
                 theme={theme}
