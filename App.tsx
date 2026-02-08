@@ -312,7 +312,7 @@ const App: React.FC = () => {
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-blue-600 rounded-full"></span>
-            <span className="font-bold">ENGINE: FLASH_LATENCY_OPT</span>
+            <span className="font-bold">ENGINE: gwdg.mistral-large-instruct</span>
           </div>
           <div className={`flex items-center gap-2 border-l pl-6 ${isDark ? 'border-white/10' : 'border-zinc-200'}`}>
             <span className="text-zinc-400">WORKSPACE:</span>
