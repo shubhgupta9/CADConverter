@@ -14,6 +14,7 @@
       overflow: hidden; /* Prevent body scroll, use custom scrolls */
       background-color: #09090b;
       color: #fafafa;
+      transition: background-color 0.3s ease;
     }
     .mono { font-family: 'JetBrains+Mono', monospace; }
     
@@ -23,9 +24,14 @@
     }
     .animate-scan-line {
       animation: scan 2.5s linear infinite;
-      border-bottom: 2px solid rgba(99, 102, 241, 0.5);
-      box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+     border-bottom: 2px solid rgba(29, 78, 216, 0.5);
+      box-shadow: 0 5px 15px rgba(29, 78, 216, 0.3);
     }
+
+     .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(59, 130, 246, 0.2); border-radius: 10px; }
+
   </style>
 <script type="importmap">
 {
